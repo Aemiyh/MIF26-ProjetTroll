@@ -33,27 +33,6 @@ def strategiePrudente(partie=None, partiesPrecedentes=None):
     return int(a)
 
 
-def strategiePrudentePascal(partie=None, partiesPrecedentes=None):
-    n = partie.stockInitial
-    m = partie.nombreCases
-    mp = m // 2
-    global PASC_FICHIER
-    global PASC_S_OPT
-    if not PASC_FICHIER:
-        fichier = open('data/{}-{}-{}.pascal'.format(50, 50, m), 'rb')
-        PASC_FICHIER = True
-        PASC_S_OPT = pickle.load(fichier)
-    elif sorted(PASC_S_OPT.keys())[-1][2] != mp:
-        fichier = open('data/{}-{}-{}.pascal'.format(50, 50, m), 'rb')
-        PASC_S_OPT = pickle.load(fichier)
-    p1 = partie.stockGauche
-    p2 = partie.stockDroite
-    t = partie.positionTroll
-    s_opt = list(PASC_S_OPT[p1, p2, t - mp])
-    a = np.random.choice(np.arange(1, p1+1, 1), p=s_opt)
-    return int(a)
-
-
 def renvoieCinq(partie=None, partiesPrecedentes=None):
     return 5
 

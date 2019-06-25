@@ -35,6 +35,8 @@ def moyenne(tableau):
 
 
 def affiche_graphe(strat1, strat2, nb_parties, nb_pierre, nb_case):
+    # Avant de plot on enleve tous les plots existants
+    plt.clf()
     # Donnees
     x = np.arange(0, nb_parties, 1)
     resultat = resultat_parties(strat1, strat2, nb_parties, nb_pierre, nb_case)

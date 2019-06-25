@@ -12,7 +12,7 @@ class Interface:
         texte_debut.pack()
 
         # Images
-        self.graph = PhotoImage(file="troll.png")
+        self.graph = PhotoImage(file="trolletchateau.png")
         self.label = Label(fenetre, image=self.graph)
         self.label.pack()
 

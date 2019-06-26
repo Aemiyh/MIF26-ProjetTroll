@@ -68,7 +68,7 @@ class Configuration:
         for j in range(1, self.y + 1):
             cl = 0
             for i in range(1, self.x + 1):
-                cl += table_locale[i, j] * plne_vars[i]  # A RE RE RE VERIFIER
+                cl += table_locale[i, j] * plne_vars[i]
             plne += cl >= g_opt
 
         # Rappel2 : la somme des proba = 1
@@ -102,9 +102,8 @@ def export_fichier(n, m, dict_a_sauv):
 
 
 def main():
-    N = 50
+    N = 15
     # m = [3, 5, 7, 9, 11, 13, 15]
-    # m = [5, 7, 9, 11,  13, 15]
     m = [5]
     for M in m:
         # M = 7

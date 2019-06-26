@@ -57,9 +57,14 @@ def renvoieAlea(partie=None, partiesPrecedentes=None):
     return random.randint(1, partie.stockGauche)
 
 
-def renvoieAleaMieux(partie=None, partiesPrecedentes=None):
+def renvoieAleaMieux2(partie=None, partiesPrecedentes=None):
     if partie.stockGauche < 5:
         return partie.stockGauche
     else:
         return random.randint(1, 5)
 
+def renvoieAleaMieux(partie=None, partiesPrecedentes=None):
+    return random.randint(1, (partie.stockDroite/2))
+
+def renvoieAleaImpair(partie=None, partiesPrecedentes=None):
+    return random.randrange(1,int(partie.stockDroite),2)

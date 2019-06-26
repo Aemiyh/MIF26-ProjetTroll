@@ -7,7 +7,7 @@ import numpy as np
 def resultat_parties(strat1, strat2, nb_partie, nb_pierre, nb_case):
     resultats = []
     for i in range(nb_partie):
-        resultats.append(troll.jouerPartie(nb_case, nb_pierre, strat1, strat2, affichageTexte=False))
+        resultats.append(troll.jouerPartie(nb_case, nb_pierre, strat1, strat2, affichageTexte=True))
     return resultats
 
 

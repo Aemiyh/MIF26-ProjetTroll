@@ -51,7 +51,7 @@ class Interface:
         saisie_nb_case.grid(row=2, column=1)
 
         # Listes déroulantes pour les strategies des joueurs
-        liste_strategie = ("Strategie prudente", "Strategie aléatoire", "Strategie aléatoire mieux", "Renvoie 5", "Renvoie 4", "Renvoie 3", "Renvoie 2", "Renvoie 1")
+        liste_strategie = ("Strategie prudente", "Strategie aléatoire", "Strategie aléatoire mieux","Renvoie Impair","Renvoie 5", "Renvoie 4", "Renvoie 3", "Renvoie 2", "Renvoie 1")
 
         label_strategie_j1 = Label(cadre_strategie, text="Strategie joueur 1 :")
         label_strategie_j1.grid(row=0, column=0)
@@ -77,7 +77,8 @@ class Interface:
             "Renvoie 4": strategies.renvoieQuatre,
             "Renvoie 3": strategies.renvoieTrois,
             "Renvoie 2": strategies.renvoieDeux,
-            "Renvoie 1": strategies.renvoieUn
+            "Renvoie 1": strategies.renvoieUn,
+            "Renvoie Impair": strategies.renvoieAleaImpair,
         }
         return switcher.get(nomStrat, strategies.renvoieUn)
 

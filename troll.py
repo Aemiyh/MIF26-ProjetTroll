@@ -6,7 +6,7 @@ import traceback
 
 class Partie():
 	"""Partie de Trolls et Chateaux"""
-	
+
 	def __init__(self, nombreCases, stockInitial):
 		"""Cree une nouvelle partie
 		- nombreCases : Nombre total de cases d'un chateau a l'autre
@@ -16,11 +16,11 @@ class Partie():
 			raise Exception("Le nombre de cases doit etre un nombre impair")
 		self.nombreCases = nombreCases
 		self.positionTroll = nombreCases // 2
-		
+
 		self.stockInitial = stockInitial
 		self.stockGauche = stockInitial
 		self.stockDroite = stockInitial
-		
+
 		self.gagnant = 0
 		self.coupsPrecedents = []
 
@@ -70,10 +70,10 @@ class Partie():
 		return copie
 
 
-		
+
 	def __repr__(self):
 		"""Fonction utilisée pour l'affichage"""
-		
+
 		statut = "Partie en cours"
 		if (self.gagnant == 1):
 			statut = "Victoire du joueur de gauche"
@@ -81,7 +81,7 @@ class Partie():
 			statut = "Victoire du joueur de droite"
 		elif (self.gagnant == 3):
 			statut = "Match nul"
-		
+
 		return """----- Partie -----
 		
 [Parametres initiaux]
@@ -97,7 +97,7 @@ class Partie():
 [Coups precedents]
 {6}
 """.format(self.nombreCases, self.stockInitial, statut, self.positionTroll, self.stockGauche, self.stockDroite, self.coupsPrecedents)
-	  
+
 
 
 	def LigneResume(self):
@@ -105,7 +105,7 @@ class Partie():
 
 		longueur = len(str(self.stockInitial))
 		pattern = "🏰[{0}] {1}👿{2} [{3}]🏰"
-		
+
 		return pattern.format(str(self.stockGauche).rjust(longueur), "_ " * self.positionTroll, " _" * (self.nombreCases - self.positionTroll - 1), str(self.stockDroite).rjust(longueur))
 
 
@@ -116,7 +116,7 @@ class Partie():
 		longueur = len(str(self.stockInitial))
 		gauche, droite = self.coupsPrecedents[len(self.coupsPrecedents)-1]
 		return "   {0}  {1}   {2} ".format(str(gauche).rjust(longueur), "  " * self.nombreCases, str(droite).rjust(longueur))
- 
+
 
 
 	def tourDeJeu(self, nombreGauche, nombreDroite):
@@ -133,47 +133,47 @@ class Partie():
 		messageCoupInvalideDroite = "";
 
 		if(nombreGauche == None):
-			 invalideGauche = True
-			 messageCoupInvalideGauche = "Le joueur de gauche n'a rien renvoyé"
+			invalideGauche = True
+			messageCoupInvalideGauche = "Le joueur de gauche n'a rien renvoyé"
 		elif(type(nombreGauche) != type(1)):
-			 invalideGauche = True
-			 messageCoupInvalideGauche = "Le joueur de gauche a renvoyé autre chose qu'un nombre entier (valeur renvoyée : {0})".format(nombreGauche)
+			invalideGauche = True
+			messageCoupInvalideGauche = "Le joueur de gauche a renvoyé autre chose qu'un nombre entier (valeur renvoyée : {0})".format(nombreGauche)
 		elif(nombreGauche > self.stockGauche):
-			 invalideGauche = True
-			 messageCoupInvalideGauche = "Le joueur de gauche a renvoyé une valeur ({0}) supérieure à son nombre de pierres ({1})".format(nombreGauche, self.stockGauche)
+			invalideGauche = True
+			messageCoupInvalideGauche = "Le joueur de gauche a renvoyé une valeur ({0}) supérieure à son nombre de pierres ({1})".format(nombreGauche, self.stockGauche)
 		elif(nombreGauche < 1):
-			 invalideGauche = True
-			 messageCoupInvalideGauche = "Le joueur de gauche a renvoyé une valeur négative ou nulle ({0})".format(nombreGauche)
+			invalideGauche = True
+			messageCoupInvalideGauche = "Le joueur de gauche a renvoyé une valeur négative ou nulle ({0})".format(nombreGauche)
 
 		if(nombreDroite == None):
-			 invalideDroite = True
-			 messageCoupInvalideDroite = "Le joueur de droite n'a rien renvoyé"
+			invalideDroite = True
+			messageCoupInvalideDroite = "Le joueur de droite n'a rien renvoyé"
 		elif(type(nombreDroite) != type(1)):
-			 invalideDroite = True
-			 messageCoupInvalideDroite = "Le joueur de droite a renvoyé autre chose qu'un nombre entier (valeur renvoyée : {0})".format(nombreDroite)
+			invalideDroite = True
+			messageCoupInvalideDroite = "Le joueur de droite a renvoyé autre chose qu'un nombre entier (valeur renvoyée : {0})".format(nombreDroite)
 		elif(nombreDroite > self.stockDroite):
-			 invalideDroite = True
-			 messageCoupInvalideDroite = "Le joueur de droite a renvoyé une valeur ({0}) supérieure à son nombre de pierres ({1})".format(nombreDroite, self.stockDroite)
+			invalideDroite = True
+			messageCoupInvalideDroite = "Le joueur de droite a renvoyé une valeur ({0}) supérieure à son nombre de pierres ({1})".format(nombreDroite, self.stockDroite)
 		elif(nombreDroite < 1):
-			 invalideDroite = True
-			 messageCoupInvalideDroite = "Le joueur de droite a renvoyé une valeur négative ou nulle ({0})".format(nombreDroite)
-		
+			invalideDroite = True
+			messageCoupInvalideDroite = "Le joueur de droite a renvoyé une valeur négative ou nulle ({0})".format(nombreDroite)
+
 		if(invalideGauche):
 
 			if(invalideDroite):
 				raise CoupInvalideSimultane(messageCoupInvalideGauche + "\n" + messageCoupInvalideDroite)
-			
+
 			else:
 				raise CoupInvalideGauche(messageCoupInvalideGauche)
-		
+
 		else:
 
 			if(invalideDroite):
 				raise CoupInvalideDroite(messageCoupInvalideDroite)
-			
+
 			else:
 				self.stockGauche -= nombreGauche
-				self.stockDroite -= nombreDroite	
+				self.stockDroite -= nombreDroite
 				if(nombreGauche > nombreDroite):
 					self.positionTroll += 1
 				elif(nombreGauche < nombreDroite):
@@ -205,7 +205,7 @@ class Partie():
 
 	def __PartieTerminee(self):
 		"""Tester si la partie est terminee (fonction privee, utilisee uniquement a la fin d'un tour de jeu)"""
-		
+
 		if(self.positionTroll == 0): # Le troll a atteint le chateau du joueur 1
 			self.gagnant = 2
 			return True
@@ -222,7 +222,7 @@ class Partie():
 			else:
 				self.gagnant = 3
 			return True
-		
+
 		else:
 			return False
 
@@ -241,7 +241,7 @@ def jouerPartie(nombreCases, stockInitial, strategie1, strategie2, partiesPreced
 	partie = Partie(nombreCases, stockInitial)
 	partieEnCours = True
 	gagnant = 0
-	message = "" 
+	message = ""
 	exception = None
 
 	# On cree une copie de la partie pour chaque joueur (pour eviter de passer en reference la partie en cours)
@@ -268,7 +268,7 @@ def jouerPartie(nombreCases, stockInitial, strategie1, strategie2, partiesPreced
 				stackTrace = traceback.format_exc()
 				exceptionGaucheMessage = "Une erreur est survenue dans la fonction du joueur de gauche : \n{0}".format(stackTrace)
 
-			try:				
+			try:
 				nombreDroite = strategie2(partieDroite, partiesPrecedentesMiroir)
 			except:
 				exceptionDroite = True
@@ -308,27 +308,27 @@ def jouerPartie(nombreCases, stockInitial, strategie1, strategie2, partiesPreced
 			exception = e
 			partieEnCours = False
 
-		else:		 
+		else:
 
 			if(partieTerminee):
-				partieEnCours = False							 
+				partieEnCours = False
 				if(gagnant == 1):
 					message = "Victoire du joueur de gauche !"
 				elif(gagnant == 2):
 					message = "Victoire du joueur de droite !"
 				else:
 					message = "Match nul ! Le troll est au milieu du chemin"
-		
-		finally : 
+
+		finally :
 
 			if(affichageTexte and (partie.coupsPrecedents != [])):
 				print(partie.LigneDernierCoup())
 
 
 	if(affichageTexte):
-		print(partie.LigneResume())	  
+		print(partie.LigneResume())
 		print(message)
-					
+
 	return BilanPartie(gagnant, message, exception, partie)
 
 
@@ -339,7 +339,7 @@ def strategieExemple1(partie, partiesPrecedentes):
 	stockActuel = partie.stockGauche
 	return min(2, stockActuel)
 
-	
+
 def strategieExemple2(partie, partiesPrecedentes):
 	"""Strategie d'exemple 2
 	- partie : Partie en cours
@@ -367,27 +367,27 @@ def jouerPlusieursParties(nombreCases, stockInitial, strategie1, strategie2, nom
 	exception = None
 
 	for i in range(nombreDeParties):
-		
-		bilan = jouerPartie(nombreCases, stockInitial, strategie1, strategie2, partiesTerminees, partiesTermineesMiroir, afficherParties)	  
-		
+
+		bilan = jouerPartie(nombreCases, stockInitial, strategie1, strategie2, partiesTerminees, partiesTermineesMiroir, afficherParties)
+
 		# Gestion des exceptions
 		if(type(bilan.exception) == CoupInvalideSimultane):
 			message = bilan.message
 			gagnant = 3
 			exception = CoupInvalideSimultane()
-			break 
+			break
 
 		if(type(bilan.exception) == CoupInvalideGauche):
 			message = bilan.message
 			gagnant = 2
 			exception = CoupInvalideGauche()
-			break 
+			break
 
 		if(type(bilan.exception) == CoupInvalideDroite):
 			message = bilan.message
 			gagnant = 1
 			exception = CoupInvalideDroite()
-			break 
+			break
 
 
 		# Mise a jour des compteurs
@@ -524,23 +524,23 @@ Matchs nuls : {4}
 
 class CoupInvalideGauche(Exception):
 	"""Exception levee lorsque le joueur de gauche propose un coup invalide"""
-	
-	def __init__(self, message = "Coup invalide du joueur de gauche"):
-		Exception.__init__(self, message)	
 
-		
+	def __init__(self, message = "Coup invalide du joueur de gauche"):
+		Exception.__init__(self, message)
+
+
 
 class CoupInvalideDroite(Exception):
 	"""Exception levee lorsque le joueur de droite propose un coup invalide"""
-	
+
 	def __init__(self, message = "Coup invalide du joueur de droite"):
 		Exception.__init__(self, message)
-	
+
 
 
 class CoupInvalideSimultane(Exception):
 	"""Exception levee lorsque les deux joueurs proposent simultanement un coup invalide"""
-	
+
 	def __init__(self, message = "Coups invalides simultanés"):
 		Exception.__init__(self, message)
 

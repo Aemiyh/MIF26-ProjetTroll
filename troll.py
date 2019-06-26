@@ -175,7 +175,10 @@ class Partie():
 				self.stockGauche -= nombreGauche
 				self.stockDroite -= nombreDroite
 				if(nombreGauche > nombreDroite):
-					self.positionTroll += 1
+					if(nombreGauche > (nombreDroite + 2)):
+						self.positionTroll += 2
+					else:
+						self.positionTroll += 1
 				elif(nombreGauche < nombreDroite):
 					self.positionTroll -= 1
 
@@ -543,4 +546,3 @@ class CoupInvalideSimultane(Exception):
 
 	def __init__(self, message = "Coups invalides simultanés"):
 		Exception.__init__(self, message)
-

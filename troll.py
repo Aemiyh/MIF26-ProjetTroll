@@ -3,8 +3,6 @@
 
 import random
 import traceback
-import math
-import numpy
 
 class Partie():
 	"""Partie de Trolls et Chateaux"""
@@ -176,17 +174,7 @@ class Partie():
 			else:
 				self.stockGauche -= nombreGauche
 				self.stockDroite -= nombreDroite
-
-				# p2 a une probabilité de manquer sa cible
-				p = 0.8
-				pNombreDroite = []
-				for i in range(0, nombreDroite+1):
-					coeffBinomial = math.factorial(nombreDroite)/(math.factorial(nombreDroite-i)*math.factorial(i))
-					pNombreDroite.append(coeffBinomial * (p ** i) * ((1 - p) ** (nombreDroite-i)))
-				nombreDroite = numpy.random.choice(numpy.arange(nombreDroite+1), 1, p=pNombreDroite)
-
 				if(nombreGauche > nombreDroite):
-					# p1 > p2 + 2, troll avance de 2
 					if(nombreGauche > (nombreDroite + 2)):
 						self.positionTroll += 2
 					else:

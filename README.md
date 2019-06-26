@@ -31,3 +31,8 @@ Il est possible de trouver une liste des strategies existantes dans le fichier *
 Les stratégies sont definies dans le fichier strategies.py selon les specifications du projet Troll.  
 Pour ajouter des stratégies, il suffit d'ajouter le nom de sa stratégie et la fonction associée dans le fichier strategies.py dans le dict de la fonction ``switch_strategie`` du fichier **interface.py**.  
 Il faut aussi ajouter le nom de la stratégie dans le tableau ``liste_strategie`` à la ligne 54 du fichier **interface.py**.
+
+## Problèmes
+Quelques défauts existent et rendent certains résultats non viable.
+Notamment sur la stratégie prudente : les arrondis de calculs font que, plusieurs fois, la somme des probabilités n'est pas tout à fait égale à 1, ce qui cause un bug pour numpy qui calcule le random, faisant perdre la partie à la stratégie prudente et donc faussant les résultats.
+Néanmoins, cela arrive assez peu souvent (<5%)
